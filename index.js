@@ -69,7 +69,8 @@ function buttonClick2() {
 
 // 3. Tiesiogiai HTML faile rankiniu būdu sukurkite <ul> tagą. (2 taškai)
 // a. JS pagalba perskaitykite masyvą africa. (4 taškai)
-// b. Naudodami createElement() ir kitus reikalingus metodus sukurkite kiekvienam masyvo elementui po <li> tagą su elemento stringu viduje ir juos įrašykite į <ul> tago vidų. (5 taškai)
+// b. Naudodami createElement() ir kitus reikalingus metodus sukurkite kiekvienam masyvo elementui po <li> tagą su elemento stringu viduje
+//  ir juos įrašykite į <ul> tago vidų. (5 taškai)
 // c. Elementus su tuščiais stringais praleiskite ir jiems <li> elementų nekurkite. (4 taškai)
 
 const ulDOM =
@@ -82,7 +83,8 @@ africa.forEach((element) => {
 });
 
 // 4. Tiesiogiai HTML faile rankiniu būdu sukurkite du tuščius input laukelius, vieną <h5> tagą ir du mygtukus: “+” ir “-”. (2 taškai)
-// a. Suprogramuokite kalkuliatorių taip, kad įrašius skaičius į abu input laukelius ir paspaudus atitinkamą mygtuką su skaičiais būtų atlikta atitinkama aritmetinė operacija. (10 taškai)
+// a. Suprogramuokite kalkuliatorių taip, kad įrašius skaičius į abu input laukelius ir paspaudus atitinkamą mygtuką su skaičiais būtų
+// atlikta atitinkama aritmetinė operacija. (10 taškai)
 // b. Jos rezultatas būtų atvaizduotas <h5> tage. (3 taškai)
 // Pasirinkite patys sau patogiausius metodus tai atlikti.
 
@@ -91,50 +93,45 @@ const inputDOM =
 const h5DOM =
   document.querySelector('h5');
 
-function add() {
-  let sum = 0;
-  if (inputDOM[0].value === '') {
+function validate(value) {
+  if (value[0].value === '') {
     h5DOM.innerHTML =
       'Įveskite pirmą reikšmę';
-  } else if (inputDOM[1].value === '') {
+    return false;
+  } else if (value[1].value === '') {
     h5DOM.innerHTML =
       'Įveskite antrą reikšmę';
+    return false;
+  } else if (!+value[0].value) {
+    h5DOM.innerHTML =
+      'Įvesta pirma reikšmė nėra skaičius';
+    return false;
+  } else if (!+value[1].value) {
+    h5DOM.innerHTML =
+      'Įvesta antra reikšmė nėra skaičius';
+    return false;
   } else {
-    if (!+inputDOM[0].value) {
-      h5DOM.innerHTML =
-        'Įvesta pirma reikšmė nėra skaičius';
-    } else if (!+inputDOM[1].value) {
-      h5DOM.innerHTML =
-        'Įvesta antra reikšmė nėra skaičius';
-    } else {
-      sum =
-        +inputDOM[0].value +
-        +inputDOM[1].value;
-      h5DOM.innerHTML = sum;
-    }
+    return true;
   }
 }
+
+function add() {
+  let sum = 0;
+  if (validate(inputDOM)) {
+    sum =
+      +inputDOM[0].value +
+      +inputDOM[1].value;
+    h5DOM.innerHTML = sum;
+  }
+}
+
 function substract() {
   let sum = 0;
-  if (inputDOM[0].value === '') {
-    h5DOM.innerHTML =
-      'Įveskite pirmą reikšmę';
-  } else if (inputDOM[1].value === '') {
-    h5DOM.innerHTML =
-      'Įveskite antrą reikšmę';
-  } else {
-    if (!+inputDOM[0].value) {
-      h5DOM.innerHTML =
-        'Įvesta pirma reikšmė nėra skaičius';
-    } else if (!+inputDOM[1].value) {
-      h5DOM.innerHTML =
-        'Įvesta antra reikšmė nėra skaičius';
-    } else {
-      sum =
-        +inputDOM[0].value -
-        +inputDOM[1].value;
-      h5DOM.innerHTML = sum;
-    }
+  if (validate(inputDOM)) {
+    sum =
+      +inputDOM[0].value -
+      +inputDOM[1].value;
+    h5DOM.innerHTML = sum;
   }
 }
 
